@@ -65,6 +65,7 @@ def custom_border(window, start_y, start_x, stop_y, stop_x, color):
         # for loops fail to add last element.
         window.addstr(stop_y, stop_x, ' ', curses.color_pair(color))
     except curses.error:
+        # curses.error is raised at end of line and can safely be ignored.
         pass
 
 
