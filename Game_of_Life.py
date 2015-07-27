@@ -16,10 +16,9 @@ def game(stdscr):
     stdscr.noutrefresh()
 
     console_height, console_width = stdscr.getmaxyx()
-    game_height, game_width = 250, 100
 
-    game_pad = curses.newpad(game_height, game_width)
-    conway = Conway(game_height, game_width)
+    game_pad = curses.newpad(console_height, console_width)
+    conway = Conway(console_width, console_height)
 
     conway.randomize()
     fill_conway(conway, game_pad)
