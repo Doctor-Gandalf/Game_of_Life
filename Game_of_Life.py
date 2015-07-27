@@ -10,8 +10,8 @@ def game(stdscr):
     curses.curs_set(False)
     stdscr.nodelay(True)
 
-    curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_BLUE)
-    curses.init_pair(2, curses.COLOR_BLACK, curses.COLOR_BLUE)
+    curses.init_pair(1, curses.COLOR_BLUE, curses.COLOR_BLUE)
+    curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_WHITE)
 
     stdscr.noutrefresh()
 
@@ -42,7 +42,7 @@ def fill_conway(conway_graph, curses_pad):
         for j in range(conway_graph.get_width()):
             try:
                 if conway_graph.get_elem(j, i):
-                    curses_pad.addstr(i, j, '\u2588', curses.color_pair(1))
+                    curses_pad.addstr(i, j, ' ', curses.color_pair(1))
                 else:
                     curses_pad.addstr(i, j, ' ', curses.color_pair(2))
             except curses.error:
