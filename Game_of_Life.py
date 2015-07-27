@@ -44,7 +44,7 @@ def fill_conway(conway_graph, curses_pad):
                 if conway_graph.get_elem(j, i):
                     curses_pad.addstr(i, j, '\u2588', curses.color_pair(1))
                 else:
-                    curses_pad.addstr(i, j, '\u2588', curses.color_pair(2))
+                    curses_pad.addstr(i, j, ' ', curses.color_pair(2))
             except curses.error:
                 # curses.error is raised at end of line and can safely be ignored.
                 pass
