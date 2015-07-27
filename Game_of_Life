@@ -12,21 +12,26 @@ def game(stdscr):
     curses.curs_set(False)
     stdscr.nodelay(True)
 
-    # Sets the two main colors for the Conway graph.
+    # Sets the three main colors for the Conway graph.
     curses.init_pair(1, curses.COLOR_BLUE, curses.COLOR_BLUE)
     curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_WHITE)
+    curses.init_pair(3, curses.COLOR_GREEN, curses.COLOR_GREEN)
 
     # Creates a pad and Conway graph based on the size of the console.
     console_height, console_width = stdscr.getmaxyx()
     game_height = console_height if console_height <= 50 else floor(7*console_height/8)
     game_width = console_width if console_width <= 100 else floor((7*console_width)/8)
 
+    # Start and stop points for the graph [start, stop).
+    # To center: floor((console_side-game_side)/2).
     start_y = floor((console_height-game_height)/2)
     start_x = floor((console_width-game_width)/2)
-    end_y = start_y + game_height
-    end_x = start_x + game_width
+    # Stop points are a function based on the start.
+    stop_y = start_y + game_height
+    stop_x = start_x + game_width
 
     game_pad = curses.newpad(game_height, game_width)
+    custom_border(stdscr, start_y-1, start_x-1, stop_y, stop_x, 3)
     conway = Conway(game_width, game_height)
 
     # Fills the Conway graph with random 0s and 1s.
@@ -35,7 +40,7 @@ def game(stdscr):
     # Executes Conway's Game of Life repeatedly until user inputs character.
     while True:
         fill_conway(conway, game_pad)
-        game_pad.refresh(0, 0, start_y, start_x, end_y-1, end_x-1)
+        game_pad.refresh(0, 0, start_y, start_x, stop_y, stop_x)
         conway.conway()
 
         # Since there is no delay on picking up characters, not inputting a character skips over break.
@@ -47,7 +52,22 @@ def game(stdscr):
             pass
 
 
+def custom_border(window, start_y, start_x, stop_y, stop_x, color):
+    """Create a border around a window in a certain color."""
+    try:
+        for i in range(start_y, stop_y):
+            window.addstr(i, start_x, ' ', curses.color_pair(color))
+            window.addstr(i, stop_x, ' ', curses.color_pair(color))
+        for i in range(start_x, stop_x):
+            window.addstr(start_y, i, ' ', curses.color_pair(color))
+            window.addstr(stop_y, i, ' ', curses.color_pair(color))
+        window.addstr(stop_y, stop_x, ' ', curses.color_pair(color))
+    except curses.error:
+        pass
+
+
 def fill_conway(conway_graph, curses_pad):
+    """Fill the pad with elements from the Conway graph."""
     # Even when Conway class implements an iterator, this needs to stay this way to avoid printing in wrong location.
     for i in range(conway_graph.get_height()):
         for j in range(conway_graph.get_width()):
