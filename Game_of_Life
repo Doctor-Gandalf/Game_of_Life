@@ -18,7 +18,7 @@ def game(stdscr):
     curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_BLACK)
     stdscr.bkgd(' ', curses.color_pair(2))
 
-    # Creates a pad and Conway graph based on the size of the console.
+    # finds the size of the console, then uses that to set up the size of the game.
     console_height, console_width = stdscr.getmaxyx()
     game_height = console_height if console_height <= 50 else floor(7*console_height/8)
     game_width = console_width if console_width <= 100 else floor((7*console_width)/8)
@@ -31,6 +31,7 @@ def game(stdscr):
     stop_y = start_y + game_height
     stop_x = start_x + game_width
 
+    # Creates a pad and Conway graph based on the size of the console.
     game_pad = curses.newpad(game_height, game_width)
     custom_border(stdscr, start_y-1, start_x-1, stop_y, stop_x, 3)
     conway = Conway(game_width, game_height)
