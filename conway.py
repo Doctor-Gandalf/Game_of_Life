@@ -6,6 +6,8 @@ from graph import Graph
 
 
 class Conway(Graph):
+    """Module for representing Conway's Game of Life in a simple graph format."""
+
     def __init__(self, width=10, height=10):
         """Construct a given Conway graph of given width and height.
 
@@ -71,6 +73,7 @@ class Conway(Graph):
 
 
 if __name__ == "__main__":
+    # Short program for showing capability of module.
     print("Demonstrating Conway's Game of Life on 5 x 5 Conway Graph\n")
     test = Conway(5, 5)
     test.randomize()

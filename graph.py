@@ -3,6 +3,7 @@ __author__ = 'Kellan Childers'
 
 
 class Graph:
+    """Simple module for representing data as a two-dimensional cartesian graph."""
     def __init__(self, width=10, height=10, default=None):
         """Construct a graph of given width and height.
 
@@ -124,6 +125,7 @@ class Graph:
             print(element)
 
 if __name__ == "__main__":
+    # Short program for showing off capability of module.
     print("""Demonstrating graph.py
 
 Creating standard graph
