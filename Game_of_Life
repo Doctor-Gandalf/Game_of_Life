@@ -29,16 +29,14 @@ def game(stdscr):
     game_pad = curses.newpad(game_height, game_width)
     conway = Conway(game_width, game_height)
 
-    # Fills the Conway graph and displays first iteration.
+    # Fills the Conway graph with random 0s and 1s.
     conway.randomize()
-    fill_conway(conway, game_pad)
-    game_pad.refresh(0, 0, start_y, start_x, end_y-1, end_x-1)
 
     # Executes Conway's Game of Life repeatedly until user inputs character.
     while True:
-        conway.conway()
         fill_conway(conway, game_pad)
         game_pad.refresh(0, 0, start_y, start_x, end_y-1, end_x-1)
+        conway.conway()
 
         # Since there is no delay on picking up characters, not inputting a character skips over break.
         try:
