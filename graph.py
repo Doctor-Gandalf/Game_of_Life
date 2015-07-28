@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 __author__ = 'Kellan Childers'
 
+from json import dump, load
+
 
 class Graph:
     """Simple module for representing data as a two-dimensional cartesian graph."""
@@ -79,6 +81,26 @@ class Graph:
         :return: the width of the graph
         """
         return len(self._graph[0])
+
+    def read_from_file(self, filename):
+        """Read a json file and load the graph from it.
+
+        :param filename: the name of the file to be read
+        :return: a reference to the graph
+        """
+        with open(filename, 'r') as read_file:
+            self._graph = load(read_file)
+        return self
+
+    def save_to_file(self, filename):
+        """Save the graph to a json file.
+
+        :param filename: the name of the file to be written to
+        :return: a reference to the graph
+        """
+        with open(filename, 'w') as write_file:
+            dump(self._graph, write_file)
+        return self
 
     def resize(self, x=0, y=0, default=None):
         """Change the dimensions of the graph.
