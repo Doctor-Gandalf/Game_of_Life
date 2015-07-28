@@ -131,12 +131,15 @@ if __name__ == "__main__":
     print("Printing unmodified graph")
     test = Graph()
     test.print_all()
+
     print("\nDemonstrating resize\nResizing to three by three")
     test.resize(3, 3)
     test.print_all()
+
     print("\nDemonstrating get_width and get_height\n")
     print("The width of the graph is {0} and the height of the graph is {1}".format(
         test.get_width(), test.get_height()))
+
     print("Demonstrating get_elem, set_elem, and surrounding\n")
     print("Adding the numbers 1-9 around point (1, 1) and setting point (1, 1) to 5\n")
 
@@ -151,10 +154,12 @@ if __name__ == "__main__":
     for i in test.surrounding(1, 1):
         print(i, end=" ")
     print("\nElement (1, 1) is:", test.get_elem(1, 1))
+
     print("Demonstrating copy and clear\n")
     print("Copying graph to new graph, then clearing original graph")
     test1 = test.copy()
     test.clear()
+
     print("\nOriginal graph is:")
     test.print_all()
     print("\nNew graph is:")
