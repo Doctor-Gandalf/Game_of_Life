@@ -47,8 +47,9 @@ def game(stdscr):
 
         # Since there is no delay on picking up characters, not inputting a character skips over break.
         try:
-            stdscr.getkey()
-            break
+            key = stdscr.getkey()
+            if key == 'q':
+                break
         except curses.error:
             # curses.error is raised if there was no keypress, so loop should continue.
             pass
