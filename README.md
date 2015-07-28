@@ -7,6 +7,7 @@ Will probably run on Linux as long as Python 3 is installed, but due to using Cu
 Interpreter located at /usr/bin/python3, if otherwise either modify Game_of_Life appropriately
 or run using python3 instead of open.
 To run, open Game_of_Life (either by running python3 or adding executable rights and opening).
+To close, press 'q'.
 
 To come:
 - More commands via keyboard
@@ -15,3 +16,7 @@ To come:
 - Ability to resize terminal while running program
 - Ability to recolor true and false
 - Ability to load and save state to text files
+
+Known issues:
+- Program crashes when switching from full screen to windowed view or when shrinking windowed view
+- When in windowed, increasing size leaves graph in top left corner and not surrounded by border
