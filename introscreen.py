@@ -75,7 +75,7 @@ class IntroScreen:
             # If 'l' is hit, load from file.
 
             # Clear line 7 in case user input a key other than enter or 'l'.
-            self.add_text_easy(7, 14, ' '*16).add_text_easy(7, 0, "Enter filename: ")
+            self.add_text_easy(7, 0, ' '*49).add_text_easy(7, 0, "Enter filename: ")
 
             curses.echo()
             filename = self.intro_win.getstr(7, 16)
@@ -85,14 +85,14 @@ class IntroScreen:
                 return conway.read_from_file(filename)
             except FileNotFoundError:
                 self.add_text_easy(7, 0, ' '*self.win_width)
-                self.add_text_easy(7, 0, "File not found. Please try again.")
+                self.add_text_easy(7, 7, "File not found. Please try again.")
                 return self.start_conway(game_height, game_width)
         elif key is 'q':
             # Exit the program safely.
             exit()
         else:
             # If another key is hit, tell the user it was invalid and retry.
-            self.add_text_easy(7, 14, "Invalid command.")
+            self.add_text_easy(7, 0, ' '*49).add_text_easy(7, 16, "Invalid command.")
             return self.start_conway(game_height, game_width)
 
 if __name__ == "__main__":
