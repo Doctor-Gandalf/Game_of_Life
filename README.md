@@ -12,7 +12,6 @@ To close, press 'q'.
 To come:
 - More commands via keyboard
 - Better visuals (to the extent Curses allows)
-- Intro screen
 - Ability to resize terminal while running program
 - Ability to recolor true and false
 - Ability to load and save state to text files
