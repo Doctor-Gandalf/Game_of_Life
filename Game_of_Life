@@ -2,9 +2,9 @@
 __author__ = 'Kellan Childers'
 
 import curses
+import util
 from introscreen import IntroScreen
 from conwayscreen import ConwayScreen
-from math import floor
 
 
 def game(stdscr):
@@ -21,15 +21,15 @@ def game(stdscr):
 
     # Finds the size of the console, then uses that to set up the size of the game.
     console_height, console_width = stdscr.getmaxyx()
-    game_height = console_height if console_height <= 50 else floor(7*console_height/8)
-    game_width = console_width if console_width <= 100 else floor((7*console_width)/8)
+    game_height, game_width = util.size_lim(console_height, console_width, 50, 100)
 
     # Introduces user to game.
     intro_win = IntroScreen(console_height, console_width)
     intro_win.add_intro_text()
 
     # Creates a pad and Conway graph based on the size of the console.
-    conway = intro_win.start_conway(game_height, game_width)
+    # conway should be two smaller than game_pad because game_pad has a border.
+    conway = intro_win.start_conway(game_height-2, game_width-2)
     game_pad = ConwayScreen(console_height, console_width, game_height, game_width, conway)
 
     # Executes Conway's Game of Life repeatedly until user inputs character.
@@ -40,7 +40,7 @@ def game(stdscr):
         try:
             key = stdscr.getkey()
             if key == 'q':
-                break
+                exit()
         except curses.error:
             # curses.error is raised if there was no keypress, so loop should continue.
             pass

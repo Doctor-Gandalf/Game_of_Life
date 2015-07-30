@@ -18,6 +18,12 @@ def center_start(console_height, console_width, window_height, window_width):
     return start_y, start_x
 
 
+def size_lim(console_height, console_width, bound_height, bound_width):
+    y = console_height if console_height <= bound_height else floor(7*console_height/8)
+    x = console_width if console_width <= bound_width else floor(7*console_width/8)
+    return y, x
+
+
 def color_box(window, start_y, start_x, stop_y, stop_x, color):
     """Create a border around a window in a certain color."""
     try:
