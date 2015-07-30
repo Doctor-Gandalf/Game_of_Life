@@ -34,7 +34,7 @@ def game(stdscr):
 
     # Executes Conway's Game of Life repeatedly until user inputs character.
     while True:
-        game_pad.take_turn(stdscr)
+        game_pad.take_turn()
 
 if __name__ == "__main__":
     # curses.wrapper ensures that program will always fully exit from curses mode if an error occurs.
