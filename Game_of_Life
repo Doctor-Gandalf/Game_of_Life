@@ -3,6 +3,7 @@ __author__ = 'Kellan Childers'
 
 import curses
 from introscreen import intro_get_conway
+from util import *
 from conway import Conway
 from math import floor
 
@@ -35,7 +36,7 @@ def game(stdscr):
     # Creates a pad and Conway graph based on the size of the console.
     game_pad = curses.newpad(game_height, game_width)
     custom_border(stdscr, start_y-1, start_x-1, stop_y, stop_x, 3)
-    conway = intro_get_conway(console_height, console_width)
+    conway = intro_get_conway(console_height, console_width, game_height, game_width)
 
     # Fills the Conway graph with random 0s and 1s.
     conway.randomize()
@@ -54,38 +55,6 @@ def game(stdscr):
         except curses.error:
             # curses.error is raised if there was no keypress, so loop should continue.
             pass
-
-
-def custom_border(window, start_y, start_x, stop_y, stop_x, color):
-    """Create a border around a window in a certain color."""
-    try:
-        for i in range(start_y, stop_y):
-            window.addstr(i, start_x, ' ', curses.color_pair(color))
-            window.addstr(i, stop_x, ' ', curses.color_pair(color))
-        for i in range(start_x, stop_x):
-            window.addstr(start_y, i, ' ', curses.color_pair(color))
-            window.addstr(stop_y, i, ' ', curses.color_pair(color))
-        # for loops fail to add last element.
-        window.addstr(stop_y, stop_x, ' ', curses.color_pair(color))
-    except curses.error:
-        # curses.error is raised at end of line and can safely be ignored.
-        pass
-
-
-def fill_conway(conway_graph, curses_pad):
-    """Fill the pad with elements from the Conway graph."""
-    # Even when Conway class implements an iterator, this needs to stay this way to avoid printing in wrong location.
-    for i in range(conway_graph.get_height()):
-        for j in range(conway_graph.get_width()):
-            try:
-                # Color the space either type 1 (currently blue) or type 2 (currently white).
-                if conway_graph.get_elem(j, i):
-                    curses_pad.addstr(i, j, ' ', curses.color_pair(1))
-                else:
-                    curses_pad.addstr(i, j, ' ', curses.color_pair(2))
-            except curses.error:
-                # curses.error is raised at end of line and can safely be ignored.
-                pass
 
 if __name__ == "__main__":
     # curses.wrapper ensures that program will always fully exit from curses mode if an error occurs.

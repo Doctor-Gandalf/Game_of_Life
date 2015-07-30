@@ -17,8 +17,7 @@ class IntroScreen:
         # If the console window is less wide than the text, it needs to adjust appropriately.
         self.console_height, self.console_width = console_height, console_width
         self.win_height, self.win_width = 8, 48 if console_width >= 48 else console_width
-        begin_y, begin_x, end_y, end_x = util.centered_coordinates(console_height, console_width,
-                                                                   self.win_height, self.win_width)
+        begin_y, begin_x = util.center_start(console_height, console_width, self.win_height, self.win_width)
         self.intro_win = curses.newwin(self.win_height, self.win_width, begin_y, begin_x)
 
     def add_intro_text(self):
