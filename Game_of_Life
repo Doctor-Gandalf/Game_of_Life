@@ -3,6 +3,7 @@ __author__ = 'Kellan Childers'
 
 import curses
 from introscreen import intro_get_conway
+from conwayscreen import ConwayScreen
 from util import *
 from conway import Conway
 from math import floor
@@ -34,18 +35,15 @@ def game(stdscr):
     stop_x = start_x + game_width
 
     # Creates a pad and Conway graph based on the size of the console.
-    game_pad = curses.newpad(game_height, game_width)
-    custom_border(stdscr, start_y-1, start_x-1, stop_y, stop_x, 3)
     conway = intro_get_conway(console_height, console_width, game_height, game_width)
+    game_pad = ConwayScreen(console_height, console_width, game_height, game_width, conway)
 
     # Fills the Conway graph with random 0s and 1s.
     conway.randomize()
 
     # Executes Conway's Game of Life repeatedly until user inputs character.
     while True:
-        fill_conway(conway, game_pad)
-        game_pad.refresh(0, 0, start_y, start_x, stop_y, stop_x)
-        conway.conway()
+        game_pad.take_turn()
 
         # Since there is no delay on picking up characters, not inputting a character skips over break.
         try:
