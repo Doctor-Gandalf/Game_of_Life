@@ -32,8 +32,8 @@ def game(stdscr):
     conway = intro_win.start_conway(game_height-2, game_width-2)
     game_pad = ConwayScreen(console_height, console_width, game_height, game_width, conway)
 
-    # Executes Conway's Game of Life repeatedly until user inputs character.
     while True:
+        # Execute Conway's Game of Life (will also accept user input).
         game_pad.take_turn()
 
 if __name__ == "__main__":
