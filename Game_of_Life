@@ -2,6 +2,7 @@
 __author__ = 'Kellan Childers'
 
 import curses
+from introscreen import intro_get_conway
 from conway import Conway
 from math import floor
 
@@ -34,7 +35,7 @@ def game(stdscr):
     # Creates a pad and Conway graph based on the size of the console.
     game_pad = curses.newpad(game_height, game_width)
     custom_border(stdscr, start_y-1, start_x-1, stop_y, stop_x, 3)
-    conway = Conway(game_width, game_height)
+    conway = intro_get_conway(console_height, console_width)
 
     # Fills the Conway graph with random 0s and 1s.
     conway.randomize()
