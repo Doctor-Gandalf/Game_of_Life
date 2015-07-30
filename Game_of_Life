@@ -18,6 +18,7 @@ def game(stdscr):
     curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_WHITE)
     curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_BLACK)
     stdscr.bkgd(' ', curses.color_pair(2))
+    stdscr.refresh()
 
     # Finds the size of the console, then uses that to set up the size of the game.
     console_height, console_width = stdscr.getmaxyx()
