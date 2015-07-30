@@ -34,16 +34,8 @@ def game(stdscr):
 
     # Executes Conway's Game of Life repeatedly until user inputs character.
     while True:
-        game_pad.take_turn()
+        game_pad.take_turn(stdscr)
 
-        # Since there is no delay on picking up characters, not inputting a character skips over break.
-        try:
-            key = stdscr.getkey()
-            if key == 'q':
-                exit()
-        except curses.error:
-            # curses.error is raised if there was no keypress, so loop should continue.
-            pass
 
 if __name__ == "__main__":
     # curses.wrapper ensures that program will always fully exit from curses mode if an error occurs.

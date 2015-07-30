@@ -52,10 +52,20 @@ class ConwayScreen:
         self.game_pad.refresh(0, 0, self.start_y, self.start_x, self.stop_y, self.stop_x)
         return self
 
-    def take_turn(self):
+    def take_turn(self, stdscr):
         """Take a turn of Conway's Game of life."""
         self.fill_conway().refresh()
         self.conway.conway()
+
+        # Since there is no delay on picking up characters on stdscr,
+        # not inputting a character skips over break.
+        try:
+            key = stdscr.getkey()
+            if key == 'q':
+                exit()
+        except curses.error:
+            # curses.error is raised if there was no keypress, so loop should continue.
+            pass
 
 
 if __name__ == "__main__":
