@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 __author__ = 'Kellan Childers'
 
 import curses
@@ -40,7 +41,7 @@ class ConwayScreen:
                         self.game_pad.addstr(i+1, j+1, ' ', curses.color_pair(2))
                 except curses.error:
                     # curses.error is raised at end of line and can safely be ignored.
-                      pass
+                    pass
         return self
 
     def refresh(self):
@@ -56,3 +57,6 @@ class ConwayScreen:
         self.fill_conway().refresh()
         self.conway.conway()
 
+
+if __name__ == "__main__":
+    print("This file creates a curses Conway screen for Game_of_life. Please run Game_of_Life for a demonstration.")
