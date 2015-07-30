@@ -81,6 +81,9 @@ class ConwayScreen:
         elif key == 'q':
             # Explicitly quit game.
             exit()
+        elif key == '\n':
+            # Take a step if user hit enter.
+            self.take_turn()
         self.pause()
 
 if __name__ == "__main__":
