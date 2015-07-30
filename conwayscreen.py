@@ -52,7 +52,7 @@ class ConwayScreen:
         self.game_pad.refresh(0, 0, self.start_y, self.start_x, self.stop_y, self.stop_x)
         return self
 
-    def take_turn(self, stdscr):
+    def take_turn(self):
         """Take a turn of Conway's Game of life."""
         self.fill_conway().refresh()
         self.conway.conway()
@@ -60,13 +60,39 @@ class ConwayScreen:
         # Since there is no delay on picking up characters on stdscr,
         # not inputting a character skips over break.
         try:
-            key = stdscr.getkey()
-            if key == 'q':
-                exit()
+            key = self.game_pad.getkey()
+            self.do_command(key)
         except curses.error:
             # curses.error is raised if there was no keypress, so loop should continue.
             pass
 
+    def do_command(self, key):
+        """Execute a command based on the key
+
+        :param key: a key command
+        :return: the key
+        """
+        if key == 'q':
+            exit()
+        elif key == 'p':
+            self.pause(self.game_pad)
+        else:
+            raise ValueError()
+        return key
+
+    def pause(self):
+        curses.nodelay(False)
+        key = self.game_pad.getkey()
+        if key == 'p':
+            curses.nodelay(True)
+            return
+        else:
+            try:
+                self.do_command(key)
+            except ValueError:
+                pass
+            finally:
+                self.pause()
 
 if __name__ == "__main__":
     print("This file creates a curses Conway screen for Game_of_life. Please run Game_of_Life for a demonstration.")

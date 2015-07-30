@@ -95,6 +95,5 @@ class IntroScreen:
             self.add_text_easy(7, 14, "Invalid command.")
             return self.start_conway(game_height, game_width)
 
-
 if __name__ == "__main__":
     print("This file creates a curses intro screen for Game_of_life. Please run Game_of_Life for a demonstration.")

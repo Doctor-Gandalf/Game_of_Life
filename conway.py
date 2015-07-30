@@ -71,7 +71,6 @@ class Conway(Graph):
         else:
             raise TypeError("Default is not a bolean")
 
-
 if __name__ == "__main__":
     # Short program for showing capability of module.
     print("Demonstrating Conway's Game of Life on 5 x 5 Conway Graph\n")
