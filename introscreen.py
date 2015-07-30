@@ -96,18 +96,5 @@ class IntroScreen:
             return self.start_conway(game_height, game_width)
 
 
-def intro_get_conway(console_height, console_width, game_height, game_width):
-    """Adds welcome screen to program and generates Conway graph for later use.
-
-    :return: a filled out Conway graph.
-    """
-    start_screen = IntroScreen(console_height, console_width)
-    start_screen.add_intro_text()
-
-    # Waits to continue program until given command because nodelay is not set to true.
-    conway = start_screen.start_conway(game_height, game_width)
-
-    return conway
-
 if __name__ == "__main__":
     print("This file creates a curses intro screen for Game_of_life. Please run Game_of_Life for a demonstration.")

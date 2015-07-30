@@ -2,7 +2,7 @@
 __author__ = 'Kellan Childers'
 
 import curses
-from introscreen import intro_get_conway
+from introscreen import IntroScreen
 from conwayscreen import ConwayScreen
 from math import floor
 
@@ -24,8 +24,12 @@ def game(stdscr):
     game_height = console_height if console_height <= 50 else floor(7*console_height/8)
     game_width = console_width if console_width <= 100 else floor((7*console_width)/8)
 
+    # Introduces user to game.
+    intro_win = IntroScreen(console_height, console_width)
+    intro_win.add_intro_text()
+
     # Creates a pad and Conway graph based on the size of the console.
-    conway = intro_get_conway(console_height, console_width, game_height, game_width)
+    conway = intro_win.start_conway(game_height, game_width)
     game_pad = ConwayScreen(console_height, console_width, game_height, game_width, conway)
 
     # Executes Conway's Game of Life repeatedly until user inputs character.
