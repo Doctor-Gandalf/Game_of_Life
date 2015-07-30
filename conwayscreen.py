@@ -65,7 +65,7 @@ class ConwayScreen:
             if key == 'q':
                 exit()
             elif key == 'p':
-              self.pause()
+                self.pause()
         except curses.error:
             # curses.error is raised if there was no keypress, so loop should continue.
             pass
