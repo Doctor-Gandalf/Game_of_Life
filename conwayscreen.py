@@ -6,16 +6,25 @@ import util
 
 class ConwayScreen:
     def __init__(self, console_height, console_width, game_height, game_width, conway):
+        """Initialize ConwayScreen.
+
+        :param console_height: the height of the console
+        :param console_width: the width of the console
+        :param game_height: the height of the game
+        :param game_width: the width of the game
+        :param conway: a Conway graph
+        :return: null
+        """
         self.conway = conway
         self.game_pad = curses.newpad(game_height+2, game_width+2)
 
         # Start and stop points for the graph [start, stop).
         self.start_y, self.start_x = util.center_start(console_height, console_width, game_height+2, game_width+2)
         # Stop points are a function based on the start.
-        self.stop_y, self.stop_x = self.start_y + game_height, self.start_x + game_width
+        self.stop_y, self.stop_x = self.start_y + game_height + 2, self.start_x + game_width + 2
 
         # Surround Conway graph with a box
-        util.color_box(self.game_pad, 0, 0, game_height, game_width, 0)
+        util.color_box(self.game_pad, 0, 0, game_height+2, game_width+2, 0)
 
     def fill_conway(self):
         """Fill the pad with elements from the Conway graph."""
@@ -43,6 +52,7 @@ class ConwayScreen:
         return self
 
     def take_turn(self):
+        """Take a turn of Conway's Game of life."""
         self.fill_conway().refresh()
         self.conway.conway()
 
