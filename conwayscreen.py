@@ -71,6 +71,7 @@ class ConwayScreen:
             pass
 
     def pause(self):
+        """Pause the game and take commands until unpaused."""
         self.game_pad.nodelay(False)
         key = self.game_pad.getkey()
         if key == 'p':
