@@ -78,28 +78,73 @@ class ConwayScreen:
     def pause(self):
         """Pause the game and take commands until unpaused."""
         self.game_pad.nodelay(False)
-        self.pause_menu()
-        key = self.game_pad.getkey()
+        self.pause_window.clrtobot()
+        self.pause_window.bkgd(' ', 0)
+
+        self.pause_window.addstr(0, 19, "Game paused")
+        self.pause_window.addstr(2, 11, "To take a step, press enter")
+        self.pause_window.addstr(3, 11, "To save the game, press 's'")
+        self.pause_window.addstr(4, 12, "To load a game, press 'l'")
+        self.pause_window.addstr(5, 15, "To quit, press 'q'")
+        self.pause_window.refresh()
+
+        key = self.pause_window.getkey()
+        self.pause_command(key)
+
+    def pause_command(self, key):
+        """Take a command in the pause menu."""
         if key == 'p':
             # At this point, clean up and quit.
             self.game_pad.nodelay(True)
             return
-        elif key == 'q':
-            # Explicitly quit game.
-            exit()
         elif key == '\n':
             # Take a step if user hit enter.
             self.take_turn()
-        self.pause()
+            key = self.pause_window.getkey()
+            self.pause_command(key)
+        elif key == 's':
+            # Save to a file.
+            self.pause_window.addstr(7, 0, "Enter filename: ")
+            self.pause_window.refresh()
+            curses.echo()
+            filename = self.pause_window.getstr(7, 16)
+            curses.noecho()
 
-    def pause_menu(self):
-        """Display the pause menu."""
-        self.pause_window.clrtobot()
-        self.pause_window.bkgd(' ', 0)
-        self.pause_window.addstr(0, 19, "Game paused")
-        self.pause_window.addstr(2, 11, "To take a step, press enter")
-        self.pause_window.addstr(3, 11, "To save the game, press 's'")
-        self.pause_window.refresh()
+            try:
+                self.conway.save_to_file(filename)
+            except FileNotFoundError:
+                # Shouldn't ever happen, but just in case.
+                self.pause_window.addstr(7, 0, ' '*50)
+                self.pause_window.addstr(7, 8, "File not found. Please try again.")
+                self.pause_window.refresh()
+            finally:
+                self.pause()
+        elif key == 'l':
+            # Load from a file.
+            self.pause_window.addstr(7, 0, "Enter filename: ")
+            self.pause_window.refresh()
+            curses.echo()
+            filename = self.pause_window.getstr(7, 16)
+            curses.noecho()
+
+            try:
+                self.conway.read_from_file(filename)
+            except FileNotFoundError:
+                # Currently does not work--pause() immediately clears.
+                self.pause_window.addstr(7, 0, ' '*50)
+                self.pause_window.addstr(7, 8, "File not found. Please try again.")
+                self.pause_window.refresh()
+            finally:
+                self.pause()
+        elif key == 'q':
+            # Explicitly quit game.
+            exit()
+        else:
+            # If another key is hit, tell the user it was invalid and retry.
+            self.pause_window.addstr(7, 0, ' '*50)
+            self.pause_window.addstr(7, 16, "Invalid command.")
+            self.pause_window.refresh()
+            self.pause()
 
 if __name__ == "__main__":
     print("This file creates a curses Conway screen for Game_of_life. Please run Game_of_Life for a demonstration.")
