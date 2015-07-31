@@ -24,6 +24,11 @@ class ConwayScreen:
         # Stop points are a function based on the start.
         self.stop_y, self.stop_x = self.start_y + game_height, self.start_x + game_width
 
+        # Initializes pause window for use in pause().
+        pause_height, pause_width = 8, 50
+        pause_y, pause_x = util.center_start(console_height, console_width, pause_height, pause_width)
+        self.pause_window = curses.newwin(pause_height, pause_width, pause_y, pause_x)
+
         # Surround Conway graph with a box
         util.color_box(self.game_pad, 0, 0, game_height, game_width, 0)
 
@@ -73,6 +78,7 @@ class ConwayScreen:
     def pause(self):
         """Pause the game and take commands until unpaused."""
         self.game_pad.nodelay(False)
+        self.pause_menu()
         key = self.game_pad.getkey()
         if key == 'p':
             # At this point, clean up and quit.
@@ -85,6 +91,15 @@ class ConwayScreen:
             # Take a step if user hit enter.
             self.take_turn()
         self.pause()
+
+    def pause_menu(self):
+        """Display the pause menu."""
+        self.pause_window.clrtobot()
+        self.pause_window.bkgd(' ', 0)
+        self.pause_window.addstr(0, 19, "Game paused")
+        self.pause_window.addstr(2, 11, "To take a step, press enter")
+        self.pause_window.addstr(3, 11, "To save the game, press 's'")
+        self.pause_window.refresh()
 
 if __name__ == "__main__":
     print("This file creates a curses Conway screen for Game_of_life. Please run Game_of_Life for a demonstration.")

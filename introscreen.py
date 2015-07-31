@@ -16,7 +16,7 @@ class IntroScreen:
         """
         # If the console window is less wide than the text, it needs to adjust appropriately.
         self.console_height, self.console_width = console_height, console_width
-        self.win_height, self.win_width = 8, 49 if console_width >= 49 else console_width
+        self.win_height, self.win_width = 8, 50 if console_width >= 50 else console_width
         begin_y, begin_x = util.center_start(console_height, console_width, self.win_height, self.win_width)
         self.intro_win = curses.newwin(self.win_height, self.win_width, begin_y, begin_x)
 
@@ -25,10 +25,10 @@ class IntroScreen:
 
         :return: a reference to the IntroScreen
         """
-        self.intro_win.addstr(1, 0, " Welcome to the Conway’s Game of Life simulator!")
-        self.intro_win.addstr(3, 0, " To start with a randomized screen, press enter.")
-        self.intro_win.addstr(4, 1, " If you would prefer to load a save, press ‘l’.")
-        self.intro_win.addstr(6, 14, "To quit, press ‘q’.")
+        self.intro_win.addstr(1, 2, "Welcome to the Conway’s Game of Life simulator!")
+        self.intro_win.addstr(3, 2, "To start with a randomized screen, press enter.")
+        self.intro_win.addstr(4, 3, "If you would prefer to load a save, press ‘l’.")
+        self.intro_win.addstr(6, 15, "To quit, press ‘q’.")
 
         self.refresh()
         return self
@@ -85,7 +85,7 @@ class IntroScreen:
                 return conway.read_from_file(filename)
             except FileNotFoundError:
                 self.add_text_easy(7, 0, ' '*self.win_width)
-                self.add_text_easy(7, 7, "File not found. Please try again.")
+                self.add_text_easy(7, 8, "File not found. Please try again.")
                 return self.start_conway(game_height, game_width)
         elif key is 'q':
             # Exit the program safely.
