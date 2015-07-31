@@ -14,7 +14,6 @@ To come:
 - Better visuals (to the extent Curses allows)
 - Ability to resize terminal while running program
 - Ability to recolor true and false
-- Ability to load and save state to text files
 
 Known issues:
 - Program crashes when switching from full screen to windowed view or when shrinking windowed view
