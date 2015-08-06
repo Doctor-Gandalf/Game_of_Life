@@ -58,7 +58,7 @@ class Conway(Graph):
         if default is 0 or default is 1:
             return super(Conway, self).resize(x, y, default)
         else:
-            raise TypeError("Default is not a bolean")
+            raise TypeError("Default is not a boolean")
 
     def clear(self, default=0):
         """Remove all data from the current graph and restore it to default.
@@ -69,7 +69,7 @@ class Conway(Graph):
         if default is 0 or default is 1:
             return super(Conway, self).clear(default)
         else:
-            raise TypeError("Default is not a bolean")
+            raise TypeError("Default is not a boolean")
 
 if __name__ == "__main__":
     # Short program for showing capability of module.
